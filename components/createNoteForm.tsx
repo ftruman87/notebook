@@ -22,10 +22,10 @@ import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
     title: z.string().min(1, {
-        message: "Username must be at least 1 characters.",
+        message: "Title must be at least 1 characters.",
     }),
     content: z.string().min(1, {
-        message: "Username must be at least 1 characters.",
+        message: "Content must be at least 1 characters.",
     }),
 })
 

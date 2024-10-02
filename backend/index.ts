@@ -1,13 +1,13 @@
 import express from 'express'
 import cors from 'cors'
 import {Note} from '@/models/Note'
-const app = express()
+export const app = express()
 
 app.use(express.json())
 app.use(cors())
 
 
-let notes = [
+export let notes = [
     {
         "id": "1",
         "title": "note title",
@@ -65,7 +65,7 @@ app.post('/notes', async (req, res) => {
     newNote.updatedAt = `${time}`;
 
     notes.push(newNote)
-
+    // perhaps should return the new note instead? Or at least new note id
     res.json({message: 'Success'});
 })
 
@@ -100,9 +100,12 @@ app.delete(`/notes/:id`, async (req, res) => {
     res.json({message: 'Succeess'})
 })
 
-// Known issue? https://github.com/TypeStrong/ts-node/issues/2100#issuecomment-1991843192
-const server = app.listen(3001, () =>
-    console.log(`
+if (process.env['NODE_ENV'] !== 'test') {
+    // Known issue? https://github.com/TypeStrong/ts-node/issues/2100#issuecomment-1991843192
+    const server = app.listen(3001, () =>
+        console.log(`
 🚀 Server ready at: http://localhost:3001
 `),
-)
+    )
+}
+
